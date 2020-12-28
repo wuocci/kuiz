@@ -45,12 +45,9 @@ function Game({playerList, roundsCount, playerList2}, props){
     useLayoutEffect(() => {
         async function fetchToken() {
             const response = await fetch('https://opentdb.com/api_token.php?command=request');
-            if(response.response_code === 0){
+            if(response.status === 200){
                 const data = await response.json();
                 setToken(data.token);  
-            }
-            else{
-                alert("Virhe kysymysten hakemisessa, päivitä sivu uudelleen!")
             }
          }
         fetchToken();
@@ -61,11 +58,9 @@ function Game({playerList, roundsCount, playerList2}, props){
         async function fetchQuestion() {
             const fetchedQuestion = await fetch('https://opentdb.com/api.php?amount=10&token=' + sessionToken);
             const questionData = await fetchedQuestion.json();
+            console.log(fetchedQuestion);
             if(questionData.response_code === 0){
                 questionData.results.map((result) => questionOnScreen.push(result));
-            }
-            else{
-                alert("Virhe kysymysten hakemisessa, päivitä sivu uudelleen!")
             }
         }
         fetchQuestion();
