@@ -1,38 +1,485 @@
-.App {
-  text-align: center;
+body{
+  background-color: #fb903987; /* #F1D282;*/
+  font-family: 'Inconsolata', monospace;
+  font-style: normal;
+  font-weight: 900;
+  width: 100%;
+  height: 100%;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+button:focus{
+  outline: red solid 5px;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+button{
+  font-family: 'Inconsolata', monospace;
+  font-weight: 900;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+
+.MainMenu{
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin: auto;
+  margin-top: 100px;
+  height: 650px;
+  width: 500px;
+  border-radius: 30px;
+  background-color: white;
+}
+.MainMenu h1{
+  font-family: 'Inconsolata', monospace;
+  font-style: normal;
+  font-weight: 900;
+  letter-spacing: -2px;
+  font-size: 34px;
+}
+
+.MainMenu p{
+  font-size: 22px;
+  font-weight:00;
+}
+
+.MainMenu input{
+  width: 60%;
+  display: flex;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
+  align-items: center;
+  margin: auto;
+}
+
+.MainMenu span{
+  font-weight: 900;
+}
+
+
+label {
+  display: flex;
+  justify-content: flex-start;
+  margin: 12px 0;
+  cursor: pointer;
+}
+
+
+/* radio buttons section */
+/*
+section {
+  width: 50%;
+  min-height: inherit;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row !important;
+  position: relative;
+}
+
+section::before,
+section::after {
+  display: block;
+  border-radius: 100%;
+  position: absolute;
+}
+
+section::before {
+  width: 30px;
+  height: 30px;
+  background: var(--primary);
+  clip-path: polygon(0 100%, 100% 0, 100% 100%);
+  top: 18px;
+  left: 18px;
+}
+
+section::after {
+  width: 42px;
+  height: 42px;
+
+  border: 1px solid var(--primary);
+
+  top: 11px;
+  left: 11px;
+}
+
+.light {
+  --primary: hsl(250, 100%, 44%);
+  --other: hsl(0, 0%, 14%);
+
+  background: white;
+}
+/* label */
+
+
+/* input */
+/*
+input[type=radio] {
+  opacity: 0;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  z-index: -1;
+}
+
+/* .design */
+/*
+.design {
+  width: 16px;
+  height: 16px;
+
+  border: 1px solid var(--other);
+  border-radius: 100%;
+  margin-right: 16px;
+
+  position: relative;
+}
+
+.design::before,
+.design::after {
+  content: "";
+  display: block;
+
+  width: inherit;
+  height: inherit;
+
+  border-radius: inherit;
+
+  position: absolute;
+  transform: scale(0);
+  transform-origin: center center;
+}
+
+.design:before {
+  background: var(--other);
+  opacity: 0;
+  transition: .3s;
+}
+
+.design::after {
+  background: var(--primary);
+  opacity: .4;
+  transition: .6s;
+}
+
+
+/* .text */
+/*
+.text {
+  color: var(--other);
+  font-weight: bold;
+}
+
+
+/* checked state */
+/*
+input[type=radio]:checked+.design::before {
+  opacity: 1;
+  transform: scale(.6);
+}
+
+
+/* other states */
+/*
+input[type=radio]:hover+.design,
+input[type=radio]:focus+.design {
+  border: 1px solid var(--primary);
+}
+
+input[type=radio]:hover+.design:before,
+input[type=radio]:focus+.design:before {
+  background: var(--primary);
+}
+
+input[type=radio]:hover~.text {
+  color: var(--primary);
+}
+
+input[type=radio]:focus+.design::after,
+input[type=radio]:active+.design::after {
+  opacity: .1;
+  transform: scale(2.6);
+}
+*/
+.settings{
+  flex-direction: column;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+}
+
+/* start button */
+.start{
+  margin-top: 80px;
+  border-radius: 100px;
+  width:100%;
+  height: 60px;
+  background-color: #438945;
+  font-size: 26px;
   color: white;
+  cursor: pointer;
+  font-family: 'Inconsolata', monospace;
 }
 
-.App-link {
-  color: #61dafb;
+.start:hover{
+  background-color: green;
+  transform: scale(1.1);  
+
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+/*text fields*/
+input[type=text]{
+  height: 40px;
+  font-size: 20px;
+}
+
+.nametags{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: auto;
+  margin-top: 100px;
+  height: 300px;
+  width: 30%;
+  border-radius: 30px;
+  background-color: white;
+}
+
+.nametags h3{
+  font-size: 24px;
+}
+
+.nametags input{
+  height: 35px;
+  font-size: 22px;
+}
+
+.addPlayer{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: auto;
+  margin-top: 40px;
+  border-radius: 100px;
+  width: 200px;
+  height: 60px;
+  background-color: #438945;
+  font-size: 26px;
+  color: white;
+  cursor: pointer;
+}
+
+.addPlayer:hover{
+  background-color: green;
+  transform: scale(1.1);  
+}
+
+.startGame{
+  display: flex;
+  justify-content: center;
+  align-items: center; 
+  border-radius: 100px;
+  margin-top: 50px;
+  width: 35%;
+  height: 60px;
+  background-color: #438945;
+  font-size: 26px;
+  color: white;
+  cursor: pointer;
+}
+.startGame:hover{
+  background-color: green;
+  transform: scale(1.1);  
+}
+
+.startDiv{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center !important;
+  margin: auto;
+  margin-top: 100px;
+  height: 450px;
+  width: 650px;
+  border-radius: 30px;
+  background-color: white
+}
+
+.startDiv h5{
+  display: flex;
+  align-items: center !important;
+  justify-content: center !important;
+  font-size: 26px;
+  width: 80%;
+  font-weight: 900 !important;
+
+}
+
+.startDiv p{
+  margin-top: -10px;
+  font-size: 20px;
+  width: 80%;
+  font-weight: 400 !important;
+
+}
+
+.goBack{
+  border-radius: 100px;
+  width: 15%;
+  height: 25px;
+  background-color: rgb(33, 33, 33);
+  font-size: 16px;
+  color: white;
+  cursor: pointer;
+  margin-bottom: 10px;
+  margin-top: 20px;
+}
+
+.goBack:hover{
+  background-color: rgb(53, 53, 53);
+  transform: scale(1.05);  
+}
+
+
+.gameDiv{
+  display: flex;
+  margin: auto;
+  margin-top: 8%;
+  height: 650px;
+  width: 90%;
+  border-radius: 20px;
+  background-color :white;
+}
+
+.questionsBox p{
+  display: flex;
+  font-size: 26px;
+  font-weight: 800;
+  margin-top: 50px;
+  margin: auto;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  width: 75%;
+  font-weight: 900;
+}
+
+.questionsBox p:first-of-type{
+  width: 100%;
+  display: flex;
+  font-size: 22px;
+  font-weight: bold;
+  margin: -10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: 500;
+}
+
+.gameDiv h2{
+  display: flex;
+  text-decoration: underline;
+  font-size: 30px;
+  font-weight: 800;
+  align-items: center;
+  justify-content: center;
+}
+
+.gameDiv h3{
+  display: flex;
+  font-size: 24px;
+  font-weight: 800;
+  align-items: center;
+  justify-content: center;
+}
+
+.gameDiv span{
+  color: rgb(180, 40, 40);
+  padding: 10px;
+  font-weight: 900;
+  font-size: 30px;
+}
+
+.questionsBox{
+  display: flex;
+  flex-direction: column;
+  width: 75%;
+}
+
+.answerButtons{
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+  width: 100%;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.answer{
+  align-items: center;
+  justify-content: center;
+  width: 75%;
+  height: 50px;
+  font-size: 20px;
+  background-color: #16167ae4;
+  color: white;
+  border-radius: 10px;
+  margin: 5px;
+}
+
+.answer:hover{
+  transform: scale(1.1);
+  cursor: pointer;
+}
+
+.playerList{
+  color: white;
+  justify-content: space-around;
+  display: flex;
+  flex-direction: row;
+  height: 650px;
+  border-radius: 20px 0px 0px 20px;
+  width: 300px;
+  border-right: 0.5px solid black;
+  background-color:#16167ae4;
+  list-style-type: none;
+}
+
+
+.points{
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  font-size: 22px !important;
+}
+
+.points p{
+  text-decoration: underline;
+}
+
+.names p{
+  text-decoration: underline;
+}
+
+.points li{
+  margin-left: 30px;
+}
+
+.names{
+  display: flex;
+  flex-direction: column;
+  font-size: 22px !important;
+}
+
+
+li{
+  font-weight: 500 !important;
+  font-size: 22px !important;
+}
+
+.loader{
+  font-size: 24px;
+  display: flex;
+  margin-top: 200px;
+  flex-direction: column;
+  justify-self: center;
+  align-items: center;
 }
