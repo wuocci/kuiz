@@ -66,12 +66,12 @@ function AddNameTags({players, roundsCount}, props){
     if(visible){
         return(
             <div className="nametags">
-                <h3>Player name: {count} / {players} </h3>
+                <h3>Choose name for player: {count} / {players} </h3>
                 <form className="addname" onSubmit={onsubmit}>
                     <label className="playerName">
                         <input type="text" value={playerName} onChange={handleInput} onKeyPress={handleKeypress}></input>       
                     </label>   
-                    <button className="addPlayer"  type="submit" onClick={addToPlayerList}>Ready</button>
+                    <button className="addPlayer"  type="submit" onClick={addToPlayerList}>ADD PLAYER</button>
                 </form>
             </div>
         );

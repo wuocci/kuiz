@@ -16,6 +16,7 @@ function Game({playerList, roundsCount, playerList2}, props){
     const [questionOnScreen] = useState([]);
     const [questionCounter, setCounter] = useState(0);
     const [loading, setLoading] = useState(true);
+    const [scoreCheck, setScore] = useState(false);
 
     // Pari muuttujaa kjeh
     var findChars = ['&amp;','&quot;','&#039;', '&lt;', '&gt;', '&reg;', '&copy;', '&euro;', '&cent;', '&pound;', '&deg;', '&prime;', '&lsquo;' ,'&rsquo;',  '&sbquo;', '&ldquo;', '&rdquo;',  '&bdquo', '&tilde;' ,'&acute;', '&uml;', '&eacute;'];
@@ -38,7 +39,7 @@ function Game({playerList, roundsCount, playerList2}, props){
      * Sessio tokeniin ei tuu depenciessejä, koska halutaan hakee vaan kerran se. Sen pitäis riittää koko
      * sessioon. Kategoriavaraustosin ehkä pitää ottaa huomioon myöhemmin.
      * 
-     * Kyssäreitä haetaan, joka rundilla uudet 10kpl ni eipähän pääse loppumaan kesken.
+     * Kyssäreitä haetaan joka rundilla uudet 10kpl ni eipähän pääse loppumaan kesken.
      * 50 kyssäriä pystyis kerralla noutaa, mut mennään tolla 10kpl ni pitäis riittää ainakin kaikille
      * eikä kuormittais ihan älyttömästi.
      */
@@ -58,7 +59,6 @@ function Game({playerList, roundsCount, playerList2}, props){
         async function fetchQuestion() {
             const fetchedQuestion = await fetch('https://opentdb.com/api.php?amount=10&token=' + sessionToken);
             const questionData = await fetchedQuestion.json();
-            console.log(fetchedQuestion);
             if(questionData.response_code === 0){
                 questionData.results.map((result) => questionOnScreen.push(result));
             }
@@ -72,7 +72,7 @@ function Game({playerList, roundsCount, playerList2}, props){
      * tähän mennes aika hyvin tulee oikeita merkkejä. 
      *
      */
-    const replaceStr = (str, find, replaceChars) =>{
+    const replaceStr = (str, find, replaceChars) => {
         for (var i = 0; i < find.length; i++) {
             str = str.replace(new RegExp(findChars[i], 'gi'), replaceChars[i]);
         }
@@ -92,6 +92,7 @@ function Game({playerList, roundsCount, playerList2}, props){
      * pelaajalaskuria ja kysymyslaskuria.
      *
      */
+
     const answeredQuestion = (event) => {
         const theAnswer = event.target.value; //klikattu painike.
 
@@ -143,7 +144,6 @@ function Game({playerList, roundsCount, playerList2}, props){
              playerList[i].points = playerList[i].points + 1;
             }
         }
-
     }
 
     /* 
@@ -194,6 +194,20 @@ function Game({playerList, roundsCount, playerList2}, props){
         } 
      };
 
+    
+    const checkScore = () => {
+        for(var i = 0; i < playerList.length; i++){
+            if(i == playerList.length -1){
+                if(playerList[i].points == playerList[i -1].points){
+                    setScore(true);
+                }
+            }
+            if(playerList[i].points == playerList[i +1].points){
+                setScore(true);
+            }
+        }
+    }
+
 
 
     /* RENDERIT TÄSSÄ */
@@ -209,8 +223,8 @@ function Game({playerList, roundsCount, playerList2}, props){
             <div className='startDiv'>
                 <h5>Press the Start Game -button when ready</h5>
                 <p>You can also go back and change the settings of the game.</p>
-                <button className='startGame' type="submit" onClick={startTheGame} onKeyPress={handleKeypress}>Start Game!</button>
-                <button className='goBack' onClick={goBack}>Go back</button>
+                <button className='startGame' type="submit" onClick={startTheGame} onKeyPress={handleKeypress}>START GAME!</button>
+                <button className='goBack' onClick={goBack}>MAIN MENU</button>
             </div> 
               ) : (<div className="loader"> 
                   <img src ={loader} alt="Loading"></img>
@@ -231,34 +245,35 @@ function Game({playerList, roundsCount, playerList2}, props){
     // Pelaajalistat tulee kans näkyviin komponenttikutsulla tuolla alempana.
     else{
         if(roundsCount >= round){
-            const answeList = [];
-            var correctAnswer = questionOnScreen[questionCounter].correct_answer;
-            var theQuestion = questionOnScreen[questionCounter].question;
-            theQuestion = replaceStr(theQuestion, findChars, replaceChars);
-            questionOnScreen[questionCounter].incorrect_answers.map((answer) => answeList.push(answer));
-            answeList.push(correctAnswer);
-            for(var i = 0; i < answeList.length; i++){
-                answeList[i] = replaceStr(answeList[i], findChars, replaceChars);
-            } 
-            answeList.sort(() => .5 - Math.random() );
-            return(
-                <div className="gameDiv">
-                    <div className='playerNav'>
-                        <PlayerNav playerList={playerList}/>
-                    </div>
-                    <div className="questionsBox">
-                        <h2>Round: {round} / {roundsCount}</h2>
-                        <h3><span> {playerList2[playerCounter] + "'s"} </span> turn</h3>
-                        <p>Category: {questionOnScreen[questionCounter].category}</p>
-                        <p>{theQuestion}</p>
-                        <div className ="answerButtons">
-                            {answeList.map((answer, index) => 
-                            <button className="answer" value={answer} key={index} onClick={answeredQuestion}>{answer}</button>)}
+            //if(roundsCount === round && scoreCheck === true){
+                const answeList = [];
+                var correctAnswer = questionOnScreen[questionCounter].correct_answer;
+                var theQuestion = questionOnScreen[questionCounter].question;
+                theQuestion = replaceStr(theQuestion, findChars, replaceChars);
+                questionOnScreen[questionCounter].incorrect_answers.map((answer) => answeList.push(answer));
+                answeList.push(correctAnswer);
+                for(var i = 0; i < answeList.length; i++){
+                    answeList[i] = replaceStr(answeList[i], findChars, replaceChars);
+                } 
+                answeList.sort(() => .5 - Math.random() );
+                return(
+                    <div className="gameDiv">
+                        <div className='playerNav'>
+                            <PlayerNav playerList={playerList}/>
                         </div>
-                    </div>  
-                </div>
-
-            );
+                        <div className="questionsBox">
+                            <h2>ROUND {round} / {roundsCount}</h2>
+                            <h3><span> {playerList2[playerCounter] + "'s"} </span> turn</h3>
+                            <p>Category: {questionOnScreen[questionCounter].category}</p>
+                            <p>{theQuestion}</p>
+                            <div className ="answerButtons">
+                                {answeList.map((answer, index) => 
+                                <button className="answer" value={answer} key={index} onClick={answeredQuestion}>{answer}</button>)}
+                            </div>
+                        </div>  
+                    </div>
+                );
+           // }
         }
 
         //Sitten ku ollaa pelattu tarpeeks rundeja ni lyödään alertti ja mainmenu tiskiin.
