@@ -15,8 +15,11 @@ function Info(){
                         <img alt="infobutton" src={infopng}></img>
                 </button>
                 <p>
-                    The rules are simple. First choose the amount of players and rounds. <br></br>
-                    Answer the questions correctly to get points. The player with the most points wins.
+                    The rules are simple: <br></br>
+                    1. First choose the amount of players and rounds. <br></br>
+                    2. Answer the questions correctly to get points. The player with the most points wins. <br></br>
+                    3. If points are even the sudden death rounds will be initiated.
+
                 </p>
             </div>
         )

@@ -27,16 +27,17 @@ button{
   width: 650px;
   border-radius: 30px;
   background-color: white;
-  box-shadow: 5px 10px;
+  box-shadow: 10px 10px;
 }
 .MainMenu h1{
   font-family: 'Inconsolata', monospace;
   font-style: normal;
   margin-top: 10px;
   font-weight: 900;
-  letter-spacing: -2px;
   font-size: 50px;
-  letter-spacing: 3px;
+  margin-left: 100px;
+  margin-top: 20px;
+  letter-spacing: 70px;
 }
 
 .MainMenu p{
@@ -96,7 +97,7 @@ label {
   font-size: 20px;
   background-color: white;
   padding: 10px;
-  box-shadow: 5px 10px;
+  box-shadow: 10px 10px;
 }
 
 
@@ -255,7 +256,7 @@ input[type=radio]:active+.design::after {
   border-radius: 100px;
   width: 200px;
   height: 80px;
-  background-color: #0e2779;;
+  background-color: #438945;
   font-size: 26px;
   color: white;
   cursor: pointer;
@@ -270,9 +271,11 @@ input[type=radio]:active+.design::after {
 
 /*text fields*/
 input[type=text]{
+  font-family: 'Inconsolata', monospace;
+  font-weight: 900;
   margin-top: 10px;
   height: 35px;
-  font-size: 26px;
+  font-size: 28px;
 }
 
 .nametags{
@@ -281,15 +284,15 @@ input[type=text]{
   align-items: center;
   margin: auto;
   margin-top: 100px;
-  height: 300px;
-  width: 500px;
+  height: 400px;
+  width: 550px;
   border-radius: 30px;
   background-color: white;
-  box-shadow: 5px 10px;
+  box-shadow: 10px 10px;
 }
 
 .nametags h3{
-  font-size: 24px;
+  font-size: 30px;
   text-transform: uppercase;
 }
 
@@ -303,7 +306,7 @@ input[type=text]{
   align-items: center;
   justify-content: center;
   margin: auto;
-  margin-top: 40px;
+  margin-top: 80px;
   border-radius: 100px;
   width: 200px;
   height: 60px;
@@ -347,7 +350,7 @@ input[type=text]{
   width: 650px;
   border-radius: 30px;
   background-color: white;
-  box-shadow: 5px 10px;
+  box-shadow: 10px 10px;
 }
 
 .startDiv h5{
@@ -389,12 +392,12 @@ input[type=text]{
 .gameDiv{
   display: flex;
   margin: auto;
-  margin-top: 8%;
-  height: 650px;
+  margin-top: 5%;
+  height: 700px;
   width: 90%;
   border-radius: 20px;
   background-color :white;
-  box-shadow: 5px 10px;
+  box-shadow: 10px 10px;
 }
 
 .questionsBox p{
@@ -421,6 +424,7 @@ input[type=text]{
   align-items: center;
   font-weight: 500;
 }
+
 
 .gameDiv h2{
   display: flex;
@@ -478,12 +482,34 @@ input[type=text]{
   cursor: pointer;
 }
 
+.returnMain{
+  margin: auto;
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 50%;
+  height: 50px;
+  font-size: 20px;
+  background-color: #16167ae4;
+  color: white;
+  border-radius: 10px;
+}
+
+.returnMain:hover{
+  transform: scale(1.1);
+  cursor: pointer;
+  background-color: green;
+}
+
+
 .playerList{
   color: white;
   justify-content: space-around;
   display: flex;
   flex-direction: row;
-  height: 650px;
+  height: 700px;
   border-radius: 20px 0px 0px 20px;
   width: 300px;
   border-right: 0.5px solid black;
@@ -530,4 +556,43 @@ li{
   flex-direction: column;
   justify-self: center;
   align-items: center;
+}
+
+.loadingImg{
+  filter: invert(48%) sepia(79%) saturate(2476%) hue-rotate(86deg) brightness(90%) contrast(119%);
+}
+
+.wScreen h2{
+  justify-content: center;
+  display: flex;
+  align-items: center;
+  font-size: 50px;
+}
+
+
+.wScreen span{ 
+  padding: 10px;
+  font-size: 60px;
+  color: #438945;
+}
+
+
+.wScreen h3{
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  font-size: 40px;
+}
+
+.wScreen li{
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  list-style: none;
+  padding: 10px;
+  font-size: 35px !important;
+}
+
+.wScreen button{
+  
 }

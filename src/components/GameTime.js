@@ -2,7 +2,9 @@ import React, { useState, useLayoutEffect , useEffect } from "react";
 import '../App.css';
 import MainMenu from "../index";
 import PlayerNav from "./PlayerList";
-import loader from "./visuals/25.gif";
+import loader from "./visuals/circles.svg";
+import Overtime from "./OverTime";
+import VictoryScreen from "./VictoryScreen";
 
 function Game({playerList, roundsCount, playerList2}, props){
 
@@ -16,7 +18,7 @@ function Game({playerList, roundsCount, playerList2}, props){
     const [questionOnScreen] = useState([]);
     const [questionCounter, setCounter] = useState(0);
     const [loading, setLoading] = useState(true);
-    const [scoreCheck, setScore] = useState(false);
+    const [winnerList] = useState([]);
 
     // Pari muuttujaa kjeh
     var findChars = ['&amp;','&quot;','&#039;', '&lt;', '&gt;', '&reg;', '&copy;', '&euro;', '&cent;', '&pound;', '&deg;', '&prime;', '&lsquo;' ,'&rsquo;',  '&sbquo;', '&ldquo;', '&rdquo;',  '&bdquo', '&tilde;' ,'&acute;', '&uml;', '&eacute;'];
@@ -98,7 +100,7 @@ function Game({playerList, roundsCount, playerList2}, props){
 
         var buttons = document.getElementsByClassName("answer"); //lista vastauspainikkeista.
 
-        if(theAnswer === questionOnScreen[questionCounter].correct_answer){
+        if(theAnswer === replaceStr(questionOnScreen[questionCounter].correct_answer, findChars, replaceChars)){
             setTimeout(() => {
                 event.target.style.backgroundColor = "#16167ae4";
                 setCounter(questionCounter+1);
@@ -196,14 +198,19 @@ function Game({playerList, roundsCount, playerList2}, props){
 
     
     const checkScore = () => {
-        for(var i = 0; i < playerList.length; i++){
-            if(i == playerList.length -1){
-                if(playerList[i].points == playerList[i -1].points){
-                    setScore(true);
-                }
+        var maxPoints = Math.max.apply(Math, playerList.map(o => o.points));
+        if(maxPoints == 0 || isNaN(maxPoints)){
+            if(playerList.length == 1){
+                winnerList.push(playerList[0]);
             }
-            if(playerList[i].points == playerList[i +1].points){
-                setScore(true);
+        }
+        else{   
+            for(var i = 0; i < playerList.length; i++){
+                if(playerList[i].points == maxPoints){
+                    if(!winnerList.includes(playerList[i])){
+                        winnerList.push(playerList[i])
+                    }
+                }
             }
         }
     }
@@ -227,7 +234,7 @@ function Game({playerList, roundsCount, playerList2}, props){
                 <button className='goBack' onClick={goBack}>MAIN MENU</button>
             </div> 
               ) : (<div className="loader"> 
-                  <img src ={loader} alt="Loading"></img>
+                  <img className="loadingImg"src={loader} alt="Loading"></img>
                 <h2>Loading the questions...</h2>
                 </div> 
             )}</>
@@ -245,43 +252,56 @@ function Game({playerList, roundsCount, playerList2}, props){
     // Pelaajalistat tulee kans näkyviin komponenttikutsulla tuolla alempana.
     else{
         if(roundsCount >= round){
-            //if(roundsCount === round && scoreCheck === true){
-                const answeList = [];
-                var correctAnswer = questionOnScreen[questionCounter].correct_answer;
-                var theQuestion = questionOnScreen[questionCounter].question;
-                theQuestion = replaceStr(theQuestion, findChars, replaceChars);
-                questionOnScreen[questionCounter].incorrect_answers.map((answer) => answeList.push(answer));
-                answeList.push(correctAnswer);
-                for(var i = 0; i < answeList.length; i++){
-                    answeList[i] = replaceStr(answeList[i], findChars, replaceChars);
-                } 
-                answeList.sort(() => .5 - Math.random() );
-                return(
-                    <div className="gameDiv">
-                        <div className='playerNav'>
-                            <PlayerNav playerList={playerList}/>
+            console.log(questionOnScreen);
+            const answeList = [];
+            var correctAnswer = questionOnScreen[questionCounter].correct_answer;
+            var theQuestion = questionOnScreen[questionCounter].question;
+            theQuestion = replaceStr(theQuestion, findChars, replaceChars);
+            questionOnScreen[questionCounter].incorrect_answers.map((answer) => answeList.push(answer));
+            answeList.push(correctAnswer);
+            for(var i = 0; i < answeList.length; i++){
+                answeList[i] = replaceStr(answeList[i], findChars, replaceChars);
+            } 
+            answeList.sort(() => .5 - Math.random() );
+            return(
+                 <div className="gameDiv">
+                    <div className='playerNav'>
+                         <PlayerNav playerList={playerList}/>
+                     </div>
+                     <div className="questionsBox">
+                         <h2>ROUND {round} / {roundsCount}</h2>
+                         <h3><span> {playerList2[playerCounter] + "'s"} </span> turn</h3>
+                        <p>Category: {questionOnScreen[questionCounter].category}</p>
+                        <p>{theQuestion}</p>
+                        <div className ="answerButtons">
+                            {answeList.map((answer, index) => 
+                            <button className="answer" value={answer} key={index} onClick={answeredQuestion}>{answer}</button>)}
                         </div>
-                        <div className="questionsBox">
-                            <h2>ROUND {round} / {roundsCount}</h2>
-                            <h3><span> {playerList2[playerCounter] + "'s"} </span> turn</h3>
-                            <p>Category: {questionOnScreen[questionCounter].category}</p>
-                            <p>{theQuestion}</p>
-                            <div className ="answerButtons">
-                                {answeList.map((answer, index) => 
-                                <button className="answer" value={answer} key={index} onClick={answeredQuestion}>{answer}</button>)}
-                            </div>
-                        </div>  
+                    </div>  
+                </div>
+            );
+        }
+        else{ 
+            checkScore();
+            if(winnerList.length == 1){
+                return(
+                    <div>
+                        <VictoryScreen playerList = {playerList}
+                        winnerList = {winnerList}/>
                     </div>
                 );
-           // }
-        }
-
-        //Sitten ku ollaa pelattu tarpeeks rundeja ni lyödään alertti ja mainmenu tiskiin.
-        else{
-            alert("Onnea voittajalle!");
-            return(
-                <MainMenu/>
-            )
+            }
+            else{
+                return(
+                    <Overtime playerList = {playerList}
+                    winnerList = {winnerList}
+                    questionOnScreen = {questionOnScreen}
+                    findChars = {findChars}
+                    replaceChars = {replaceChars}
+                    playerList2 = {playerList2}
+                    />
+                )
+            }
         }
     }
 }
