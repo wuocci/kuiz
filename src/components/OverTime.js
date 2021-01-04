@@ -1,26 +1,30 @@
-import React, { useState, useLayoutEffect , useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import PlayerNav from "./PlayerList";
 import loader from "./visuals/puff.svg";
 import '../App.css';
 import VictoryScreen from "./VictoryScreen";
 
-function Overtime({playerList, winnerList, questionOnScreen, findChars, replaceChars, playerList2}){
+function Overtime({playerList, winnerList, questionOnScreen, findChars, replaceChars}){
     //STATET
     const [round, setRound] = useState(1);
     const [playerCounter, setPlayer] = useState(0);
     const [count, setCount] = useState(1); 
     const [loading, setLoading] = useState(true);
     const [newQuestCounter, setCounter] = useState(0);
-    const [questionList] = useState([]);
+    const [questionList, setList] = useState([]);
+    const [questionChecker, setCheck] = useState([]);
     const [visible, setVisible] = useState(true);
+    const [points, setPoints] = useState(Math.max.apply(Math, winnerList.map(o => o.points)));
+    var winnerList2 = [];
 
 
 
     useEffect(() => {
         setTimeout(() => setLoading(false), 8000)
-      }, [])
+      }, []);
 
     const playerCounterMethod = () => {
+        setCounter(newQuestCounter + 1);
         if(count === winnerList.length){
             setPlayer(0);
             setCount(1);
@@ -33,23 +37,30 @@ function Overtime({playerList, winnerList, questionOnScreen, findChars, replaceC
     }
 
     const pickQuestions = () => {
-        var listLen  = questionOnScreen.length -1;
+        var listLen = questionOnScreen.length -round;
         var stopFlag = false;
         for(var i = listLen; i > 0; i--){
             if(stopFlag){
                 break;
-            }
+             }
             else{
                 var pickedCategory = questionOnScreen[i].category;
                 console.log(pickedCategory);
-                questionList.push(questionOnScreen[i]);
-                 if(questionOnScreen[i].category == pickedCategory){
-                    console.log(pickedCategory);
-                    if(winnerList.length == questionList.length){
-                         stopFlag = true;
-                    }
-                    else{
-                        questionList.push(questionOnScreen[i]);
+                var categoryList = questionOnScreen.filter(category => category.category == pickedCategory);
+                console.log(categoryList);
+                if(categoryList.length >= winnerList.length){
+                    for(var j = categoryList.length -1; j > 0; j--){
+                        var question = categoryList[j];
+                        if(!questionChecker.includes(question)){
+                            if(winnerList.length > questionList.length){
+                                questionList.push(question);
+                                questionChecker.push(question);
+                            }
+                            else{
+                                stopFlag = true;
+                                break;
+                            }
+                        }
                     }
                 }
             }
@@ -57,15 +68,18 @@ function Overtime({playerList, winnerList, questionOnScreen, findChars, replaceC
     }
 
     const addPoints = () => {
-        for(let i in winnerList) {
-            if(winnerList[i].name == playerList2[playerCounter]){
-                winnerList[i].points = playerList[i].points + 1;
+        for(let i in playerList) {
+            if(playerList[i].name == winnerList[playerCounter].name){
+                //playerList[i].points = playerList[i].points + 1;
+                winnerList[i].points = winnerList[i].points + 1;
             }
         }
     }
 
 
     const roundCounter = () => {
+        setList([]);
+        console.log(checkScore());
         if(checkScore() == false){
             setRound(round + 1);
         }
@@ -87,16 +101,30 @@ function Overtime({playerList, winnerList, questionOnScreen, findChars, replaceC
         if(isNaN(maxPoints)){
            alert("Error in points count, sorry!")
         }
-        else{   
-            for(var i = 0; i < winnerList.length; i++){
-                if(!winnerList[i].points == maxPoints){
-                    winnerList.splice(i, 1);
+        else if(maxPoints == points){
+            return false;
+        }
+        else{
+           winnerList2 = winnerList.filter(player => player.points == maxPoints);
+           console.log(winnerList2);
+           if(winnerList2.length > 1){
+                for(let j in winnerList){
+                    if(winnerList[j].points != maxPoints){
+                        console.log(winnerList);
+                        winnerList.splice(j, 1) 
+                        console.log(winnerList);
+                    }
+                }
+                if(winnerList.length == 1){
+                    return true;
+                }
+                else{
+                    return false;
                 }
             }
-        }
-        console.log(winnerList);
-        if(winnerList.length == 1){
-            return true;
+            else{
+                return true;
+            }
         }
     }
 
@@ -106,11 +134,10 @@ function Overtime({playerList, winnerList, questionOnScreen, findChars, replaceC
 
         var buttons = document.getElementsByClassName("answer"); //lista vastauspainikkeista.
 
-        if(theAnswer === replaceStr(questionList[newQuestCounter].correct_answer, findChars, replaceChars)){
+        if(theAnswer === replaceStr(questionList[playerCounter].correct_answer, findChars, replaceChars)){
             setTimeout(() => {
                 event.target.style.backgroundColor = "#16167ae4";
                 addPoints();
-                setCounter(newQuestCounter+1);
                 playerCounterMethod();
             }, 2000);
             event.target.style.backgroundColor = "#0cbe0c";
@@ -118,7 +145,7 @@ function Overtime({playerList, winnerList, questionOnScreen, findChars, replaceC
         }     
         else{
             for(var i = 0; i < buttons.length; i++){
-                if(buttons[i].value == replaceStr(questionList[newQuestCounter].correct_answer, findChars, replaceChars)){
+                if(buttons[i].value == replaceStr(questionList[playerCounter].correct_answer, findChars, replaceChars)){
                     var buttonColour = buttons[i];
                     event.target.style.backgroundColor = "#e40c2b";
                     buttonColour.style.backgroundColor = "#0cbe0c";    
@@ -135,18 +162,19 @@ function Overtime({playerList, winnerList, questionOnScreen, findChars, replaceC
                 else{
                     console.log("Täs oli undefined");
                 }
-                setCounter(newQuestCounter+1);
                 playerCounterMethod();
             }, 2000); 
         }
-    } 
-    pickQuestions();
+    }
+    pickQuestions(); 
+    console.log(winnerList);
     console.log(questionList);
+    console.log(questionChecker);
     const answeList = [];
-    var correctAnswer = questionList[newQuestCounter].correct_answer;
-    var theQuestion = questionList[newQuestCounter].question;
+    var correctAnswer = questionList[playerCounter].correct_answer;
+    var theQuestion = questionList[playerCounter].question;
     theQuestion = replaceStr(theQuestion, findChars, replaceChars);
-    questionList[newQuestCounter].incorrect_answers.map((answer) => answeList.push(answer));
+    questionList[playerCounter].incorrect_answers.map((answer) => answeList.push(answer));
     answeList.push(correctAnswer);
     for(var i = 0; i < answeList.length; i++){
         answeList[i] = replaceStr(answeList[i], findChars, replaceChars);
@@ -163,7 +191,7 @@ function Overtime({playerList, winnerList, questionOnScreen, findChars, replaceC
                 <div className="questionsBox">
                     <h2>ROUND {round} </h2>
                     <h3><span> {winnerList[playerCounter].name + "'s"} </span> turn</h3>
-                <p>Category: {questionList[newQuestCounter].category}</p>
+                <p>Category: {questionList[playerCounter].category}</p>
                 <p>{theQuestion}</p>
                 <div className ="answerButtons">
                     {answeList.map((answer, index) => 

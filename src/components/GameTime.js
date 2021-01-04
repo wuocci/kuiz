@@ -19,6 +19,7 @@ function Game({playerList, roundsCount, playerList2}, props){
     const [questionCounter, setCounter] = useState(0);
     const [loading, setLoading] = useState(true);
     const [winnerList] = useState([]);
+    const [winnerListClone] = useState([]);
 
     // Pari muuttujaa kjeh
     var findChars = ['&amp;','&quot;','&#039;', '&lt;', '&gt;', '&reg;', '&copy;', '&euro;', '&cent;', '&pound;', '&deg;', '&prime;', '&lsquo;' ,'&rsquo;',  '&sbquo;', '&ldquo;', '&rdquo;',  '&bdquo', '&tilde;' ,'&acute;', '&uml;', '&eacute;'];
@@ -41,9 +42,6 @@ function Game({playerList, roundsCount, playerList2}, props){
      * Sessio tokeniin ei tuu depenciessejä, koska halutaan hakee vaan kerran se. Sen pitäis riittää koko
      * sessioon. Kategoriavaraustosin ehkä pitää ottaa huomioon myöhemmin.
      * 
-     * Kyssäreitä haetaan joka rundilla uudet 10kpl ni eipähän pääse loppumaan kesken.
-     * 50 kyssäriä pystyis kerralla noutaa, mut mennään tolla 10kpl ni pitäis riittää ainakin kaikille
-     * eikä kuormittais ihan älyttömästi.
      */
     useLayoutEffect(() => {
         async function fetchToken() {
@@ -59,7 +57,7 @@ function Game({playerList, roundsCount, playerList2}, props){
 
     useLayoutEffect(() => {
         async function fetchQuestion() {
-            const fetchedQuestion = await fetch('https://opentdb.com/api.php?amount=10&token=' + sessionToken);
+            const fetchedQuestion = await fetch('https://opentdb.com/api.php?amount=50&token=' + sessionToken);
             const questionData = await fetchedQuestion.json();
             if(questionData.response_code === 0){
                 questionData.results.map((result) => questionOnScreen.push(result));
@@ -209,6 +207,7 @@ function Game({playerList, roundsCount, playerList2}, props){
                 if(playerList[i].points == maxPoints){
                     if(!winnerList.includes(playerList[i])){
                         winnerList.push(playerList[i])
+                        winnerListClone.push(playerList[i].name)
                     }
                 }
             }
@@ -295,10 +294,10 @@ function Game({playerList, roundsCount, playerList2}, props){
                 return(
                     <Overtime playerList = {playerList}
                     winnerList = {winnerList}
+                    winnerListClone = {winnerList}
                     questionOnScreen = {questionOnScreen}
                     findChars = {findChars}
                     replaceChars = {replaceChars}
-                    playerList2 = {playerList2}
                     />
                 )
             }

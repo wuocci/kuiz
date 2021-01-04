@@ -22,7 +22,7 @@ function VictoryScreen({playerList, winnerList}) {
                     gravity={0.07}
                     />
                 </div>
-                <h2>THE WINNER IS: <span>{winnerList[0].name}</span> WITH POINTS: {winnerList[0].points} </h2>
+                <h2>THE WINNER IS: <span>{playerList[0].name}</span> WITH POINTS: {playerList[0].points} </h2>
                 <h3>SCOREBOARD: {playerList.map((player, index) => <li key={player.id}>{[index + 1] + "." + player.name} ..... {player.points}</li>)} </h3>
                 <button className="returnMain" onClick={buttonClick}>Back to Main Menu</button>
             </div>

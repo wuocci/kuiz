@@ -27,7 +27,7 @@ button{
   width: 650px;
   border-radius: 30px;
   background-color: white;
-  box-shadow: 10px 10px;
+  box-shadow: 20px 10px;
 }
 .MainMenu h1{
   font-family: 'Inconsolata', monospace;
@@ -397,7 +397,7 @@ input[type=text]{
   width: 90%;
   border-radius: 20px;
   background-color :white;
-  box-shadow: 10px 10px;
+  box-shadow: 20px 10px 0px 5px;
 }
 
 .questionsBox p{
@@ -594,5 +594,5 @@ li{
 }
 
 .wScreen button{
-  
+  height: 100px;
 }
