@@ -14,7 +14,7 @@ function Overtime({playerList, winnerList, questionOnScreen, findChars, replaceC
     const [questionList, setList] = useState([]);
     const [questionChecker, setCheck] = useState([]);
     const [visible, setVisible] = useState(true);
-    const [points, setPoints] = useState(Math.max.apply(Math, winnerList.map(o => o.points)));
+    const [points] = useState(Math.max.apply(Math, winnerList.map(o => o.points)));
     var winnerList2 = [];
 
 

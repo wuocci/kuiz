@@ -100,144 +100,6 @@ label {
   box-shadow: 10px 10px;
 }
 
-
-/* radio buttons section */
-/*
-section {
-  width: 50%;
-  min-height: inherit;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: row !important;
-  position: relative;
-}
-
-section::before,
-section::after {
-  display: block;
-  border-radius: 100%;
-  position: absolute;
-}
-
-section::before {
-  width: 30px;
-  height: 30px;
-  background: var(--primary);
-  clip-path: polygon(0 100%, 100% 0, 100% 100%);
-  top: 18px;
-  left: 18px;
-}
-
-section::after {
-  width: 42px;
-  height: 42px;
-
-  border: 1px solid var(--primary);
-
-  top: 11px;
-  left: 11px;
-}
-
-.light {
-  --primary: hsl(250, 100%, 44%);
-  --other: hsl(0, 0%, 14%);
-
-  background: white;
-}
-/* label */
-
-
-/* input */
-/*
-input[type=radio] {
-  opacity: 0;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  z-index: -1;
-}
-
-/* .design */
-/*
-.design {
-  width: 16px;
-  height: 16px;
-
-  border: 1px solid var(--other);
-  border-radius: 100%;
-  margin-right: 16px;
-
-  position: relative;
-}
-
-.design::before,
-.design::after {
-  content: "";
-  display: block;
-
-  width: inherit;
-  height: inherit;
-
-  border-radius: inherit;
-
-  position: absolute;
-  transform: scale(0);
-  transform-origin: center center;
-}
-
-.design:before {
-  background: var(--other);
-  opacity: 0;
-  transition: .3s;
-}
-
-.design::after {
-  background: var(--primary);
-  opacity: .4;
-  transition: .6s;
-}
-
-
-/* .text */
-/*
-.text {
-  color: var(--other);
-  font-weight: bold;
-}
-
-
-/* checked state */
-/*
-input[type=radio]:checked+.design::before {
-  opacity: 1;
-  transform: scale(.6);
-}
-
-
-/* other states */
-/*
-input[type=radio]:hover+.design,
-input[type=radio]:focus+.design {
-  border: 1px solid var(--primary);
-}
-
-input[type=radio]:hover+.design:before,
-input[type=radio]:focus+.design:before {
-  background: var(--primary);
-}
-
-input[type=radio]:hover~.text {
-  color: var(--primary);
-}
-
-input[type=radio]:focus+.design::after,
-input[type=radio]:active+.design::after {
-  opacity: .1;
-  transform: scale(2.6);
-}
-*/
-
 .settings{
   display: flex;
   flex-direction: column;
@@ -350,7 +212,7 @@ input[type=text]{
   width: 650px;
   border-radius: 30px;
   background-color: white;
-  box-shadow: 10px 10px;
+  box-shadow: 20px 10px;
 }
 
 .startDiv h5{
@@ -360,15 +222,22 @@ input[type=text]{
   font-size: 26px;
   width: 80%;
   font-weight: 900 !important;
+  text-transform: uppercase;
 
 }
 
 .startDiv p{
+  text-transform: uppercase;
   margin-top: -10px;
   font-size: 20px;
   width: 80%;
   font-weight: 400 !important;
+}
 
+.startDiv span{
+  font-size: inherit;
+  padding: 10px;
+  color: green;
 }
 
 .goBack{
@@ -393,7 +262,7 @@ input[type=text]{
   display: flex;
   margin: auto;
   margin-top: 5%;
-  height: 700px;
+  height: 800px;
   width: 90%;
   border-radius: 20px;
   background-color :white;
@@ -509,7 +378,7 @@ input[type=text]{
   justify-content: space-around;
   display: flex;
   flex-direction: row;
-  height: 700px;
+  height: 800px;
   border-radius: 20px 0px 0px 20px;
   width: 300px;
   border-right: 0.5px solid black;
@@ -560,6 +429,8 @@ li{
 
 .loadingImg{
   filter: invert(48%) sepia(79%) saturate(2476%) hue-rotate(86deg) brightness(90%) contrast(119%);
+  width: 200px;
+  height: 100px;
 }
 
 .wScreen h2{

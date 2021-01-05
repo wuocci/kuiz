@@ -2,7 +2,7 @@ import React, { useState, useLayoutEffect , useEffect } from "react";
 import '../App.css';
 import MainMenu from "../index";
 import PlayerNav from "./PlayerList";
-import loader from "./visuals/circles.svg";
+import loader from "./visuals/tail-spin.svg";
 import Overtime from "./OverTime";
 import VictoryScreen from "./VictoryScreen";
 
@@ -19,9 +19,9 @@ function Game({playerList, roundsCount, playerList2}, props){
     const [questionCounter, setCounter] = useState(0);
     const [loading, setLoading] = useState(true);
     const [winnerList] = useState([]);
-    const [winnerListClone] = useState([]);
 
-    // Pari muuttujaa kjeh
+
+    // Pari muuttujaa (heh :D)
     var findChars = ['&amp;','&quot;','&#039;', '&lt;', '&gt;', '&reg;', '&copy;', '&euro;', '&cent;', '&pound;', '&deg;', '&prime;', '&lsquo;' ,'&rsquo;',  '&sbquo;', '&ldquo;', '&rdquo;',  '&bdquo', '&tilde;' ,'&acute;', '&uml;', '&eacute;'];
     var replaceChars = ['&', '"', "'", '<', '>', '®', '©', '€', '¢', '£', '°', '′',  "‘", "’", "‚", '“',  '”', '„', '˜', '´', '¨' , 'é'] ;
  
@@ -34,13 +34,13 @@ function Game({playerList, roundsCount, playerList2}, props){
     /* 
      * Uselayouteffectit API kutsuille. 
      * 
-     * Ekana haetaan sessio tokeni, jonka pitäis varmistaa, että ei tuu samaan sessioon samoja kysymyksiä.
+     * Ekana haetaan sessio tokeni, jonka pitäis dokumentaation mukaan varmistaa, että ei tuu samaan sessioon samoja kysymyksiä.
      * 
-     * Sit haetaan 10 kyssäriä kerralla seuraavassa API kutsussa, kunhan ollaa saatu päivitettyä
+     * Sit haetaan 50 kyssäriä kerralla seuraavassa API kutsussa, kunhan ollaa saatu päivitettyä
      * setToken -state tokenilla.
      * 
      * Sessio tokeniin ei tuu depenciessejä, koska halutaan hakee vaan kerran se. Sen pitäis riittää koko
-     * sessioon. Kategoriavaraustosin ehkä pitää ottaa huomioon myöhemmin.
+     * sessioon. Kategoriavaraustosin ehkä pitää ottaa huomioon myöhemmin (kysymykset loppuu kesken error?).
      * 
      */
     useLayoutEffect(() => {
@@ -49,6 +49,9 @@ function Game({playerList, roundsCount, playerList2}, props){
             if(response.status === 200){
                 const data = await response.json();
                 setToken(data.token);  
+            }
+            else{
+                alert("Unable to fetch questions, please reload the page!");
             }
          }
         fetchToken();
@@ -61,6 +64,9 @@ function Game({playerList, roundsCount, playerList2}, props){
             const questionData = await fetchedQuestion.json();
             if(questionData.response_code === 0){
                 questionData.results.map((result) => questionOnScreen.push(result));
+            }
+            else{
+                alert("Unable to fetch questions, please reload the page!");
             }
         }
         fetchQuestion();
@@ -194,6 +200,8 @@ function Game({playerList, roundsCount, playerList2}, props){
         } 
      };
 
+
+     //
     
     const checkScore = () => {
         var maxPoints = Math.max.apply(Math, playerList.map(o => o.points));
@@ -207,7 +215,6 @@ function Game({playerList, roundsCount, playerList2}, props){
                 if(playerList[i].points == maxPoints){
                     if(!winnerList.includes(playerList[i])){
                         winnerList.push(playerList[i])
-                        winnerListClone.push(playerList[i].name)
                     }
                 }
             }
@@ -227,14 +234,14 @@ function Game({playerList, roundsCount, playerList2}, props){
             <>
             {loading === false ? (
             <div className='startDiv'>
-                <h5>Press the Start Game -button when ready</h5>
-                <p>You can also go back and change the settings of the game.</p>
+                <h5>Press the <span>Start Game</span> -button when ready</h5>
+                <p>You can also go back to main menu and change the settings of the game.</p>
                 <button className='startGame' type="submit" onClick={startTheGame} onKeyPress={handleKeypress}>START GAME!</button>
                 <button className='goBack' onClick={goBack}>MAIN MENU</button>
             </div> 
               ) : (<div className="loader"> 
                   <img className="loadingImg"src={loader} alt="Loading"></img>
-                <h2>Loading the questions...</h2>
+                <h2>LOADING THE QUESTIONS...</h2>
                 </div> 
             )}</>
         );
@@ -248,7 +255,7 @@ function Game({playerList, roundsCount, playerList2}, props){
     }
 
     // Jos päätetään alottaa peli niin rendaillaan kysymykset listasta ja oikeat vastauspainikkeet näkyviin. 
-    // Pelaajalistat tulee kans näkyviin komponenttikutsulla tuolla alempana.
+    // Pelaajalistat tulee kans näkyviin komponenttikutsulla.
     else{
         if(roundsCount >= round){
             console.log(questionOnScreen);
