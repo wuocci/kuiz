@@ -1,70 +1,19 @@
+# KUIZ - the anonymous multiplayer quizin' game.
+
+The game is under development and as it's current state it's a rough but working demo version. The UI at this moment heavily relies on the end-users ability to mirror the screen on a bigger screen either with a Tablet or Laptop. Kuiz should also run with the newest smart tv's. These are the best ways to get out the full potential of the game. The internet is full of multiplayer and single player quizes but most of them require some kind of registration, therefore I wanted to create something similar based on anonymity and easy access. I also wanted to make a side project where I could improve my ReactJS and on the same time make a (fun) party game.
+
+# BASIC GAMEPLAY2
+
+In Kuiz you first choose the amount of players (1-8) and rounds to play (1-50). After the game starts questions start to pop on the screen either with 4 or 2 different answer options. At the end, the player who has answered the most of the questions correctly, wins the game. If there is a tie situation after all rounds have been played, the game will automatically initiate sudden death rounds where player has to answer correctly to stay in the game. In normal rounds the questions and categories are randomized, but in the sudden death rounds the category stays the same for every player on the round.
+
+# TECHNICALITIES
+
+Kuiz is made in ReactJS. The questions for the game are being fetched from the API of opentdb.com, which is free to use, user-contributed question database. When a new game session is initiated the game will fetch a session token from the API and then uses the token to get the questions. The session token ensures that there should not be same questions on the same session. 
+
+# POSSIBLE UPDATES
+
+At this moment the game's UI is a little stiff for the end-user and is not accessible to everyone. To make the game accessible and easy-to-use there is a possibility to develop the game with the Socket.io engine. This would enable the session creation for each game. Session creation could generate a code for other players to join in on the same session with their on devices. 
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
-
-## Available Scripts
-
-In the project directory, you can run:
-
-### `npm start`
-
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
-
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
