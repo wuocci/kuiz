@@ -12,7 +12,7 @@ Kuiz is made in ReactJS. The questions for the game are being fetched from the A
 
 # POSSIBLE UPDATES
 
-At this moment the game's UI is a little stiff for the end-user and is not accessible to everyone. To make the game accessible and easy-to-use there is a possibility to develop the game with the Socket.io engine. This would enable the session creation for each game. Session creation could generate a code for other players to join in on the same session with their on devices. 
+At this moment the game's UI is a little stiff for the end-user and is not accessible to everyone. To make the game accessible and easy-to-use there is a possibility to develop the game with the Socket.io engine. This would enable the session creation for each game. Session creation could generate a code for other players to join in on the same session with their own devices. 
 
 # Getting Started with Create React App
 
